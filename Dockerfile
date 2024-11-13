@@ -1,8 +1,14 @@
-# Usa una imagen base de Tomcat
-FROM tomcat:9.0
+# Dockerfile para la aplicación Spring Boot (Backend)
+FROM openjdk:17-jdk-slim
 
-# Copiar el archivo WAR a la carpeta webapps de Tomcat
-COPY target/GroveStreet-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
+# Establece el directorio de trabajo en /app
+WORKDIR /app
 
-# Exponer el puerto en el que Tomcat escucha
+# Copia el archivo JAR generado en el directorio actual
+COPY target/GroveStreet-0.0.1-SNAPSHOT.jar app.jar
+
+# Expone el puerto 8080 para el backend de Spring Boot
 EXPOSE 8080
+
+# Comando para ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "app.jar"]

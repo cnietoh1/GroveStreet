@@ -2,11 +2,17 @@ package es.carlosnh.grovestreet.entidades;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@NoArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "favorito")
 public class Favorito {
 

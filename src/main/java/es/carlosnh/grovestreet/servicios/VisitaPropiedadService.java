@@ -27,14 +27,6 @@ public class VisitaPropiedadService {
         return visitaPropiedadRepository.save(visitaPropiedad);
     }
 
-    public VisitaPropiedad actualizar(Long id, VisitaPropiedad visitaPropiedad) {
-        if (visitaPropiedadRepository.existsById(id)) {
-            visitaPropiedad.setId(id);
-            return visitaPropiedadRepository.save(visitaPropiedad);
-        }
-        return null;
-    }
-
     public boolean eliminar(Long id) {
         if (visitaPropiedadRepository.existsById(id)) {
             visitaPropiedadRepository.deleteById(id);

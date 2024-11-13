@@ -35,12 +35,6 @@ public class TransaccionController {
         return transaccionService.crear(transaccion);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Transaccion> actualizarTransaccion(@PathVariable Long id, @RequestBody Transaccion transaccion) {
-        Transaccion actualizada = transaccionService.actualizar(id, transaccion);
-        return actualizada != null ? ResponseEntity.ok(actualizada) : ResponseEntity.notFound().build();
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarTransaccion(@PathVariable Long id) {
         boolean eliminado = transaccionService.eliminar(id);

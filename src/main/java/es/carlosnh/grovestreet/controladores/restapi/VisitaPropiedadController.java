@@ -31,12 +31,6 @@ public class VisitaPropiedadController {
         return visitaPropiedadService.crear(visita);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<VisitaPropiedad> actualizarVisita(@PathVariable Long id, @RequestBody VisitaPropiedad visita) {
-        VisitaPropiedad actualizada = visitaPropiedadService.actualizar(id, visita);
-        return actualizada != null ? ResponseEntity.ok(actualizada) : ResponseEntity.notFound().build();
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancelarVisita(@PathVariable Long id) {
         boolean eliminado = visitaPropiedadService.eliminar(id);

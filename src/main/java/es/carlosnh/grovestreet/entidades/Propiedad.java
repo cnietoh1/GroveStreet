@@ -1,14 +1,22 @@
 package es.carlosnh.grovestreet.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "propiedad")
 public class Propiedad {
 
@@ -34,6 +42,7 @@ public class Propiedad {
     @Column(nullable = false)
     private Double metrosCuadrados;
 
+    @JsonProperty("tipo_propiedad")
     @Column(nullable = false)
     private String tipo; // Ej: "venta", "alquiler"
 
@@ -47,7 +56,9 @@ public class Propiedad {
     @JoinColumn(name = "id_ubicacion", referencedColumnName = "id")
     private Ubicacion ubicacion;
 
+
     // Relación 1:N con Imagenes
     @OneToMany(mappedBy = "propiedad", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ImagenPropiedad> imagenes;
 }

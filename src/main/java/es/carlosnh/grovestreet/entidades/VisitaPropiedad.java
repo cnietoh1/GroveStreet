@@ -2,13 +2,19 @@ package es.carlosnh.grovestreet.entidades;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
 @Entity
-@NoArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "visita_propiedad")
 public class VisitaPropiedad {
 

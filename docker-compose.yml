@@ -1,8 +1,8 @@
-version: '3.8'
 services:
+  # Servicio para la base de datos PostgreSQL
   postgres:
     image: postgres:latest
-    container_name: db-postgres
+    container_name: grovestreet_db
     environment:
       POSTGRES_DB: grovestreet_db
       POSTGRES_USER: admin
@@ -14,19 +14,14 @@ services:
     networks:
       - app-network
 
-  springboot-app:
+  # Servicio para el frontend (Angular)
+  frontend:
     build:
-      context: .  # Asume que el Dockerfile está en la raíz del proyecto
+      context: C:\Users\carlo\Documents\TFG\GroveStreet_Frontend
       dockerfile: Dockerfile
-    container_name: springboot-app
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db-postgres:5432/grovestreet_db
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
+    container_name: angular-frontend
     ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
+      - "80:80"
     networks:
       - app-network
 

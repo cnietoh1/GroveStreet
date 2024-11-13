@@ -2,13 +2,19 @@ package es.carlosnh.grovestreet.entidades;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
 @Entity
-@NoArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "transaccion")
 public class Transaccion {
 
@@ -23,7 +29,7 @@ public class Transaccion {
     private Double cantidad;
 
     @Column(nullable = false)
-    private String estado; // Ej: "completada", "pendiente"
+    private String tipo_transaccion; // Ej: "completada", "pendiente"
 
     // Relación N:1 con Usuario (comprador)
     @ManyToOne

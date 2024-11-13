@@ -35,12 +35,6 @@ public class UsuarioController {
         return usuarioService.crear(usuario);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario actualizado = usuarioService.actualizar(id, usuario);
-        return actualizado != null ? ResponseEntity.ok(actualizado) : ResponseEntity.notFound().build();
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
         boolean eliminado = usuarioService.eliminar(id);

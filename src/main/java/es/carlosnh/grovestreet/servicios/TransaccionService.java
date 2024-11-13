@@ -27,14 +27,6 @@ public class TransaccionService {
         return transaccionRepository.save(transaccion);
     }
 
-    public Transaccion actualizar(Long id, Transaccion transaccion) {
-        if (transaccionRepository.existsById(id)) {
-            transaccion.setId(id);
-            return transaccionRepository.save(transaccion);
-        }
-        return null;
-    }
-
     public boolean eliminar(Long id) {
         if (transaccionRepository.existsById(id)) {
             transaccionRepository.deleteById(id);

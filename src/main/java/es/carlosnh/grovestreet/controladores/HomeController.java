@@ -14,6 +14,6 @@ public class HomeController {
 
     @GetMapping({"","/index"})
     public String bienvenida(){
-        return "redirect:/index";
+        return "forward:/index.html";
     }
 }
