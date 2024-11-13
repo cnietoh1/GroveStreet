@@ -20,7 +20,7 @@ public class Transaccion {
     private Date fecha;
 
     @Column(nullable = false)
-    private Double monto;
+    private Double cantidad;
 
     @Column(nullable = false)
     private String estado; // Ej: "completada", "pendiente"

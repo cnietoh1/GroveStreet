@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "visita_propiedad")
-public class VisitiaPropiedad {
+public class VisitaPropiedad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

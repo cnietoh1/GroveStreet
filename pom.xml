@@ -13,7 +13,7 @@
     <groupId>es.carlosnh</groupId>
     <artifactId>GroveStreet</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging> <!-- Asegúrate de que sea "war" -->
+    <packaging>jar</packaging>
 
     <name>GroveStreet</name>
     <description>GroveStreet</description>
@@ -39,12 +39,11 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope> <!-- Añadir scope para que no esté en pruebas -->
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope> <!-- Tomcat estará en el contenedor -->
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -67,11 +66,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- No es necesario si empaquetas como WAR -->
-                    <!-- <executable>true</executable> -->
-                </configuration>
+                <version>3.3.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 </project>

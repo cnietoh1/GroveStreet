@@ -1,0 +1,11 @@
+{
+  "titulo": "Piso en el centro",
+  "descripcion": "Un piso amplio y luminoso en el centro de la ciudad.",
+  "precio": 250000,
+  "habitaciones": 3,
+  "banos": 2,
+  "metrosCuadrados": 120,
+  "tipo": "venta",
+  "usuario": { "id": 1 },
+  "ubicacion": { "id": 2 }
+}

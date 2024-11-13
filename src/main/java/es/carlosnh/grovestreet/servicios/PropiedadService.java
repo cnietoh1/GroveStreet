@@ -1,9 +1,12 @@
 package es.carlosnh.grovestreet.servicios;
 
+import es.carlosnh.grovestreet.entidades.Propiedad;
 import es.carlosnh.grovestreet.repositorios.PropiedadRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -11,4 +14,25 @@ import org.springframework.stereotype.Service;
 public class PropiedadService {
 
     private final PropiedadRepository propiedadRepository;
+
+    public List<Propiedad> obtenerTodas() {
+        return propiedadRepository.findAll();
+    }
+
+    public Propiedad obtenerPorId(Long id) {
+        return propiedadRepository.findById(id).orElse(null);
+    }
+
+    public Propiedad crear(Propiedad propiedad) {
+        return propiedadRepository.save(propiedad);
+    }
+
+    public boolean eliminar(Long id) {
+        try {
+            propiedadRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo eliminar la propiedad con ID: " + id);
+        }
+    }
 }
