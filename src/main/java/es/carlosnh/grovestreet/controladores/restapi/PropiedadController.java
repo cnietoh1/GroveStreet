@@ -1,43 +1,56 @@
 package es.carlosnh.grovestreet.controladores.restapi;
 
+import es.carlosnh.grovestreet.dto.propiedad.PropiedadDto;
 import es.carlosnh.grovestreet.entidades.Propiedad;
 import es.carlosnh.grovestreet.servicios.PropiedadService;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import es.carlosnh.grovestreet.dto.propiedad.PropiedadMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Data
-@Slf4j
 @RestController
 @RequestMapping("/api/propiedades")
+@RequiredArgsConstructor
 public class PropiedadController {
 
-    @Autowired
-    private PropiedadService propiedadService;
-
-    @GetMapping
-    public List<Propiedad> obtenerTodas() {
-        return propiedadService.obtenerTodas();
-    }
+    private final PropiedadService propiedadService;
+    private final PropiedadMapper propiedadMapper;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Propiedad> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<PropiedadDto> obtenerPorId(@PathVariable Long id) {
         Propiedad propiedad = propiedadService.obtenerPorId(id);
-        return propiedad != null ? ResponseEntity.ok(propiedad) : ResponseEntity.notFound().build();
+        if (propiedad == null) {
+            return ResponseEntity.notFound().build();
+        }
+        PropiedadDto propiedadDto = propiedadMapper.toDto(propiedad);
+        return ResponseEntity.ok(propiedadDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PropiedadDto>> obtenerTodas() {
+        List<PropiedadDto> propiedades = propiedadService.obtenerTodas().stream()
+                .map(propiedadMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(propiedades);
     }
 
     @PostMapping
-    public Propiedad crearPropiedad(@RequestBody Propiedad propiedad) {
-        return propiedadService.crear(propiedad);
+    public ResponseEntity<PropiedadDto> crearPropiedad(@RequestBody PropiedadDto propiedadDto) {
+        Propiedad propiedad = propiedadMapper.toEntity(propiedadDto);
+        Propiedad nuevaPropiedad = propiedadService.crear(propiedad);
+        PropiedadDto nuevaPropiedadDto = propiedadMapper.toDto(nuevaPropiedad);
+        return ResponseEntity.ok(nuevaPropiedadDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarPropiedad(@PathVariable Long id) {
         boolean eliminado = propiedadService.eliminar(id);
-        return eliminado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        if (eliminado) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

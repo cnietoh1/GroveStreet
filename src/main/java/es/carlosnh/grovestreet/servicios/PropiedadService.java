@@ -28,11 +28,10 @@ public class PropiedadService {
     }
 
     public boolean eliminar(Long id) {
-        try {
+        if (propiedadRepository.existsById(id)) {
             propiedadRepository.deleteById(id);
             return true;
-        } catch (Exception e) {
-            throw new RuntimeException("No se pudo eliminar la propiedad con ID: " + id);
         }
+        return false;
     }
 }

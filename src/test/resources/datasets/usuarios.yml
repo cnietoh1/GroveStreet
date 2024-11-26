@@ -1,0 +1,7 @@
+usuario:
+  - id: 1
+    username: "admin"
+    email: "admin@gmail.com"
+    password: "admin"
+    fecha_alta: "2024-11-13T00:00:00"
+    telefono: "123456789"

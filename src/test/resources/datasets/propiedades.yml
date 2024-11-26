@@ -1,0 +1,15 @@
+propiedad:
+  - id: 1
+    titulo: "Piso en el centro"
+    descripcion: "Bonito piso en el centro"
+    precio: 250000.0
+    tipo: "venta"
+    id_usuario: 1
+    id_ubicacion: 1
+  - id: 2
+    titulo: "Chalet en la sierra"
+    descripcion: "Chalet acogedor con vistas"
+    precio: 500000.0
+    tipo: "venta"
+    id_usuario: 1
+    id_ubicacion: 2
