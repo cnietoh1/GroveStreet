@@ -1,7 +1,5 @@
 package es.carlosnh.grovestreet.servicios;
 
-import es.carlosnh.grovestreet.dto.jwt.JwtMapper;
-import es.carlosnh.grovestreet.dto.jwt.JwtSignupRequest;
 import es.carlosnh.grovestreet.dto.usuario.UsuarioMapper;
 import es.carlosnh.grovestreet.dto.usuario.UsuarioSignupDto;
 import es.carlosnh.grovestreet.entidades.Usuario;
@@ -22,7 +20,6 @@ public class UsuarioService {
 
     private final PasswordEncoder passwordEncoder;
     private final UsuarioMapper usuarioMapper;
-    private final JwtMapper jwtMapper;
 
     public Usuario save(Usuario u) {
         u.setPassword(passwordEncoder.encode(u.getPassword()));
@@ -32,12 +29,6 @@ public class UsuarioService {
     public Usuario save(UsuarioSignupDto dto) {
         Usuario usuario = usuarioMapper.toEntity(dto);
         usuario.setPassword(passwordEncoder.encode(dto.password()));
-        return usuarioRepository.save(usuario);
-    }
-
-    public Usuario save(JwtSignupRequest dto) {
-        Usuario usuario = jwtMapper.toEntity(dto);
-        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         return usuarioRepository.save(usuario);
     }
 

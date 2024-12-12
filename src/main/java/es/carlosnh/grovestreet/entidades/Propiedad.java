@@ -42,9 +42,8 @@ public class Propiedad {
     @Column(nullable = false)
     private Double metrosCuadrados;
 
-    @JsonProperty("tipo_propiedad")
     @Column(nullable = false)
-    private String tipo; // Ej: "venta", "alquiler"
+    private TipoPropiedad tipoPropiedad;
 
     // Relación con Usuario (muchas propiedades pertenecen a un usuario)
     @ManyToOne
@@ -56,6 +55,8 @@ public class Propiedad {
     @JoinColumn(name = "id_ubicacion", referencedColumnName = "id")
     private Ubicacion ubicacion;
 
+    @Column(nullable = false)
+    private TipoContrato tipoContrato;
 
     // Relación 1:N con Imagenes
     @OneToMany(mappedBy = "propiedad", cascade = CascadeType.ALL)

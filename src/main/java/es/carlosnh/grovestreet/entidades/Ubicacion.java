@@ -36,7 +36,6 @@ public class Ubicacion {
     @Column(nullable = false)
     private String codigoPostal;
 
-
     // Relación 1:1 con Propiedad
     @OneToOne(mappedBy = "ubicacion")
     @JsonIgnore

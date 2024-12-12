@@ -3,9 +3,9 @@ package es.carlosnh.grovestreet.controladores;
 import es.carlosnh.grovestreet.controladores.restapi.PropiedadController;
 import es.carlosnh.grovestreet.dto.propiedad.PropiedadDto;
 import es.carlosnh.grovestreet.entidades.Propiedad;
+import es.carlosnh.grovestreet.entidades.TipoContrato;
 import es.carlosnh.grovestreet.servicios.PropiedadService;
 import es.carlosnh.grovestreet.dto.propiedad.PropiedadMapper;
-import es.carlosnh.grovestreet.seguridad.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,9 +33,6 @@ public class PropiedadControllerTest {
     @MockBean
     private PropiedadMapper propiedadMapper;
 
-    @MockBean
-    private JwtTokenProvider jwtTokenProvider; // Agregado para simular la dependencia
-
     @Test
     void testCrearPropiedad() throws Exception {
         String nuevaPropiedad = """
@@ -60,7 +57,7 @@ public class PropiedadControllerTest {
                 .titulo("Piso en el centro")
                 .descripcion("Bonito piso en el centro")
                 .precio(250000.0)
-                .tipo("venta")
+                .tipoContrato(TipoContrato.VENTA)
                 .build();
 
         when(propiedadMapper.toEntity(any(PropiedadDto.class))).thenReturn(propiedad);
@@ -82,7 +79,7 @@ public class PropiedadControllerTest {
                 .titulo("Piso en el centro")
                 .descripcion("Bonito piso en el centro")
                 .precio(250000.0)
-                .tipo("venta")
+                .tipoContrato(TipoContrato.VENTA)
                 .build();
 
         PropiedadDto propiedadDto = PropiedadDto.builder()
@@ -113,7 +110,7 @@ public class PropiedadControllerTest {
                 .titulo("Piso en el centro")
                 .descripcion("Bonito piso en el centro")
                 .precio(250000.0)
-                .tipo("venta")
+                .tipoContrato(TipoContrato.VENTA)
                 .build();
 
         PropiedadDto propiedadDto = PropiedadDto.builder()
@@ -124,7 +121,7 @@ public class PropiedadControllerTest {
                 .tipo("venta")
                 .build();
 
-        when(propiedadService.obtenerTodas()).thenReturn(List.of(propiedad));
+        when(propiedadService.obtenerPropiedades()).thenReturn(List.of());
         when(propiedadMapper.toDto(propiedad)).thenReturn(propiedadDto);
 
         mockMvc.perform(get("/api/propiedades")

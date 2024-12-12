@@ -1,0 +1,33 @@
+<div class="landing-container">
+  <header class="landing-header">
+    <div class="logo-container">
+      <img ngSrc="assets/imagenes/grovestreet.jpg" alt="Logo Grove Street" class="logo" height="75" width="75">
+    </div>
+    <nav class="nav-bar">
+      <ul class="nav-links">
+        <li><a href="#">Pisocompartido</a></li>
+        <li><a href="#">Pisosblog</a></li>
+        <li><a href="#">Hipotecas</a></li>
+        <li><a href="#">Simulador de luz solar</a></li>
+        <li><a href="#">Profesionales</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <button class="btn btn-publicar">Publica gratis</button>
+        <button class="btn btn-login">Entrar</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="landing-main">
+    <div class="main-content">
+      <h1 class="main-title">Tu nueva vida a un clic</h1>
+      <div class="search-container">
+        <div class="search-fields">
+          <input type="text" placeholder="Ciudad..." class="search-input" [(ngModel)]="ciudad">
+          <input type="text" placeholder="Provincia..." class="search-location" [(ngModel)]="provincia">
+          <button class="btn search-submit" (click)="buscar()">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   # Servicio para la base de datos PostgreSQL
   postgres:
@@ -11,17 +13,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
-
-  # Servicio para el frontend (Angular)
-  frontend:
-    build:
-      context: C:\Users\carlo\Documents\TFG\GroveStreet_Frontend
-      dockerfile: Dockerfile
-    container_name: angular-frontend
-    ports:
-      - "80:80"
     networks:
       - app-network
 

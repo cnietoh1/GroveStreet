@@ -1,12 +1,11 @@
 package es.carlosnh.grovestreet.dto.propiedad;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PropiedadDto {
     private Long id;
     private String titulo;

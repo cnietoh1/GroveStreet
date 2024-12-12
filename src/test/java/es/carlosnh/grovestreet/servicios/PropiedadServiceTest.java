@@ -1,6 +1,7 @@
 package es.carlosnh.grovestreet.servicios;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import es.carlosnh.grovestreet.dto.propiedad.PropiedadDto;
 import es.carlosnh.grovestreet.entidades.Propiedad;
 import es.carlosnh.grovestreet.repositorios.PropiedadRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,7 @@ public class PropiedadServiceTest {
     @Test
     void testObtenerTodasPropiedades() {
         when(propiedadRepository.findAll()).thenReturn(List.of(propiedad));
-        List<Propiedad> resultado = propiedadService.obtenerTodas();
+        List<PropiedadDto> resultado = propiedadService.obtenerPropiedades();
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         verify(propiedadRepository, times(1)).findAll();

@@ -88,23 +88,6 @@
             <artifactId>jakarta.persistence-api</artifactId>
             <version>3.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${io.jsonwebtoken.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${io.jsonwebtoken.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${io.jsonwebtoken.version}</version>
-            <scope>runtime</scope>
-        </dependency>
         <!-- Mocking con Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -119,11 +102,9 @@
         <dependency>
             <groupId>com.github.database-rider</groupId>
             <artifactId>rider-spring</artifactId>
-            <version>1.31.0</version> <!-- Cambiar según la última versión -->
+            <version>1.31.0</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>

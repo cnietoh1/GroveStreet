@@ -2,7 +2,6 @@ package es.carlosnh.grovestreet.controladores;
 
 import es.carlosnh.grovestreet.controladores.restapi.UsuarioController;
 import es.carlosnh.grovestreet.entidades.Usuario;
-import es.carlosnh.grovestreet.seguridad.jwt.JwtTokenProvider;
 import es.carlosnh.grovestreet.servicios.UsuarioService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -29,9 +27,6 @@ public class UsuarioControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private WebApplicationContext webApplicationContext;
-
-    @MockBean
-    private JwtTokenProvider jwtTokenProvider;
 
     @MockBean
     private UsuarioService usuarioService;
@@ -64,7 +59,6 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testObtenerTodosUsuarios() throws Exception {
         List<Usuario> usuarios = Arrays.asList(
                 Usuario.builder()

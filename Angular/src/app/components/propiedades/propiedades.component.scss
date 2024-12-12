@@ -1,0 +1,125 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+
+    .titulo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .titulo {
+        font-size: 24px;
+      }
+
+      .subtitulo {
+        font-size: 16px;
+        color: #666;
+      }
+    }
+
+    .acciones {
+      display: flex;
+      gap: 10px;
+
+      .boton {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &.switch {
+          background-color: #6c63ff;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .main {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+
+    .filtros {
+      flex: 1;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+
+      .filtro {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        input,
+        select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    .listado {
+      flex: 2;
+      margin-left: 20px;
+
+      .propiedad {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        .info-propiedad {
+          background-color: #fff;
+          padding: 10px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    .mapa {
+      flex: 1;
+      margin-left: 20px;
+
+      .guardar-busqueda {
+        background-color: #6c63ff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+
+    .enlaces {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      a {
+        text-decoration: none;
+        color: #333;
+      }
+    }
+  }
+}
