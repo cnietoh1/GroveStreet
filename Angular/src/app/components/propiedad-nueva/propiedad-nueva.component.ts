@@ -99,15 +99,14 @@ export class PropiedadNuevaComponent implements OnInit {
   cargarUbicaciones() {
     this.http.get<any[]>('http://localhost:8080/api/ubicaciones').subscribe({
       next: (data) => {
-        // Asume que `data` tiene la estructura [{ codigoPostal: '05001', ciudad: 'Ávila' }, ...]
+
         this.ciudades = [...new Set(data.map((ubicacion) => ubicacion.ciudad))].filter(Boolean);
         this.provincias = [...new Set(data.map((ubicacion) => ubicacion.provincia))].filter(Boolean);
         this.paises = [...new Set(data.map((ubicacion) => ubicacion.pais))].filter(Boolean);
 
-        // Corregir la lista de códigos postales
         this.codigosPostales = data.map((ubicacion) => ({
-          codigoPostal: ubicacion.codigoPostal,
-          ciudad: ubicacion.ciudad
+          codigoPostal: ubicacion.codigoPostal.trim(),
+          ciudad: ubicacion.ciudad,
         }));
       },
       error: (error) => {
@@ -142,6 +141,14 @@ export class PropiedadNuevaComponent implements OnInit {
 
     const formData = new FormData();
 
+    // Limpiar ubicación
+    const ubicacion: { [key: string]: any } = {
+      ciudad: this.propiedad.ubicacion.ciudad.replace(/^,/, '').trim(),
+      provincia: this.propiedad.ubicacion.provincia.replace(/^,/, '').trim(),
+      pais: this.propiedad.ubicacion.pais.replace(/^,/, '').trim(),
+      codigoPostal: this.propiedad.ubicacion.codigoPostal.replace(/^,/, '').trim(),
+    };
+
     // Agregar datos básicos
     Object.keys(this.propiedad).forEach((key) => {
       if (key !== 'imagen' && key !== 'ubicacion') {
@@ -149,10 +156,10 @@ export class PropiedadNuevaComponent implements OnInit {
       }
     });
 
-    formData.append('ciudad', this.propiedad.ubicacion.ciudad);
-    formData.append('provincia', this.propiedad.ubicacion.provincia);
-    formData.append('pais', this.propiedad.ubicacion.pais);
-    formData.append('codigoPostal', this.propiedad.ubicacion.codigoPostal);
+    // Agregar la ubicación limpia
+    (Object.keys(ubicacion) as (keyof typeof ubicacion)[]).forEach((key) => {
+      formData.append(`ubicacion.${key}`, ubicacion[key]);
+    });
 
     // Adjuntar imagen si existe
     if (this.propiedad.imagen) {
@@ -170,6 +177,20 @@ export class PropiedadNuevaComponent implements OnInit {
       },
     });
   }
+
+  limpiarCodigoPostal(): void {
+    // Remueve texto adicional en el código postal
+    this.propiedad.ubicacion.codigoPostal = this.propiedad.ubicacion.codigoPostal.split(' ')[0];
+  }
+
+  logUbicacion(): void {
+    console.log('Valores actuales de ubicación:');
+    console.log('Ciudad:', this.propiedad.ubicacion.ciudad);
+    console.log('Provincia:', this.propiedad.ubicacion.provincia);
+    console.log('País:', this.propiedad.ubicacion.pais);
+    console.log('Código Postal:', this.propiedad.ubicacion.codigoPostal);
+  }
+
 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();

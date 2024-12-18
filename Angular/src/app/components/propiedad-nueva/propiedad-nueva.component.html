@@ -77,22 +77,22 @@
       <legend>Ubicación</legend>
       <div class="ubicacion-grid">
         <label for="ciudad">Ciudad</label>
-        <select id="ciudad" name="ciudad" [(ngModel)]="propiedad.ubicacion.ciudad" required>
+        <select id="ciudad" name="ciudad" [(ngModel)]="propiedad.ubicacion.ciudad" (change)="logUbicacion()" required>
           <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
         </select>
 
         <label for="provincia">Provincia</label>
-        <select id="provincia" name="provincia" [(ngModel)]="propiedad.ubicacion.provincia" required>
+        <select id="provincia" name="provincia" [(ngModel)]="propiedad.ubicacion.provincia" (change)="logUbicacion()" required>
           <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
         </select>
 
         <label for="pais">País</label>
-        <select id="pais" name="pais" [(ngModel)]="propiedad.ubicacion.pais" required>
+        <select id="pais" name="pais" [(ngModel)]="propiedad.ubicacion.pais" (change)="logUbicacion()" required>
           <option *ngFor="let pais of paises" [value]="pais">{{ pais }}</option>
         </select>
 
         <label for="codigoPostal">Código Postal</label>
-        <select id="codigoPostal" name="codigoPostal" [(ngModel)]="propiedad.ubicacion.codigoPostal" required>
+        <select id="codigoPostal" name="codigoPostal" [(ngModel)]="propiedad.ubicacion.codigoPostal" (change)="limpiarCodigoPostal(); logUbicacion()" required>
           <option *ngFor="let cp of codigosPostales" [value]="cp.codigoPostal">
             {{ cp.codigoPostal }} ({{ cp.ciudad }})
           </option>

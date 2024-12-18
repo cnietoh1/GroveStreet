@@ -69,6 +69,22 @@ public class PropiedadController {
             @RequestParam("codigoPostal") String codigoPostal,
             @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
 
+        log.info("Datos recibidos:");
+        log.info("Titulo: {}", titulo);
+        log.info("Descripcion: {}", descripcion);
+        log.info("Direccion: {}", direccion);
+        log.info("Precio: {}", precio);
+        log.info("Habitaciones: {}", habitaciones);
+        log.info("Banos: {}", banos);
+        log.info("Metros cuadrados: {}", metrosCuadrados);
+        log.info("TipoContrato: {}", tipoContrato);
+        log.info("TipoPropiedad: {}", tipoPropiedad);
+        log.info("Ciudad: {}", ciudad);
+        log.info("Provincia: {}", provincia);
+        log.info("Pais: {}", pais);
+        log.info("Codigo Postal: {}", codigoPostal);
+        log.info("Imagen: {}", imagen != null ? imagen.getOriginalFilename() : "No subida");
+
         try {
             // Buscar o crear la ubicación correspondiente
             Ubicacion ubicacion = ubicacionService.buscarUbicacion(ciudad, provincia, pais, codigoPostal)
