@@ -1,0 +1,79 @@
+<div class="registro-container">
+  <form (ngSubmit)="registrarUsuario()">
+    <h2>Registro</h2>
+
+    <label for="nombre">Nombre</label>
+    <input
+      id="nombre"
+      type="text"
+      [(ngModel)]="usuario.nombre"
+      name="nombre"
+      required
+    />
+
+    <label for="apellidos">Apellidos</label>
+    <input
+      id="apellidos"
+      type="text"
+      [(ngModel)]="usuario.apellidos"
+      name="apellidos"
+      required
+    />
+
+    <label for="dni">DNI</label>
+    <input
+      id="dni"
+      type="text"
+      [(ngModel)]="usuario.dni"
+      name="dni"
+      required
+    />
+
+    <label for="telefono">Teléfono</label>
+    <input
+      id="telefono"
+      type="text"
+      [(ngModel)]="usuario.telefono"
+      name="telefono"
+      required
+    />
+
+    <label for="direccion">Dirección</label>
+    <input
+      id="direccion"
+      type="text"
+      [(ngModel)]="usuario.direccion"
+      name="direccion"
+      required
+    />
+
+    <label for="correo">Correo electrónico</label>
+    <input
+      id="correo"
+      type="email"
+      [(ngModel)]="usuario.email"
+      name="correo"
+      required
+    />
+
+    <label for="username">Usuario</label>
+    <input
+      id="username"
+      type="text"
+      [(ngModel)]="usuario.username"
+      name="username"
+      required
+    />
+
+    <label for="password">Contraseña</label>
+    <input
+      id="password"
+      type="password"
+      [(ngModel)]="usuario.password"
+      name="password"
+      required
+    />
+
+    <button type="submit">Registrarse</button>
+  </form>
+</div>

@@ -1,30 +1,57 @@
 <div class="landing-container">
-  <header class="landing-header">
-    <div class="logo-container">
-      <img ngSrc="assets/imagenes/grovestreet.jpg" alt="Logo Grove Street" class="logo" height="75" width="75">
+  <header class="header">
+    <a routerLink="/">
+      <img ngSrc="assets/imagenes/grovestreet.jpg" alt="Grove Street Logo" class="logo" width="75" height="75" />
+    </a>
+    <div class="titulo-container">
+      <h1 class="titulo">GROVE STREET</h1>
+      <p class="subtitulo">Tu piso, a un clic!</p>
     </div>
     <nav class="nav-bar">
-      <ul class="nav-links">
-        <li><a href="#">Pisocompartido</a></li>
-        <li><a href="#">Pisosblog</a></li>
-        <li><a href="#">Hipotecas</a></li>
-        <li><a href="#">Simulador de luz solar</a></li>
-        <li><a href="#">Profesionales</a></li>
-      </ul>
       <div class="nav-buttons">
-        <button class="btn btn-publicar">Publica gratis</button>
-        <button class="btn btn-login">Entrar</button>
+        <!-- Botón Crear Anuncio -->
+        <button class="boton_anuncio" (click)="crearAnuncio()">
+          <i class="fas fa-plus"></i> Crear anuncio
+        </button>
+
+          <!-- Botón Iniciar sesión -->
+        <div *ngIf="!isAuthenticated()">
+            <button class="boton_login" (click)="router.navigate(['/login'])">Iniciar sesión</button>
+        </div>
+        <!-- Mostrar nombre de usuario -->
+        <div *ngIf="isAuthenticated()">
+          <span class="username">{{ getUsername() }}</span>
+        </div>
+        <!-- Icono de perfil con menú desplegable -->
+        <div class="user-menu" *ngIf="isAuthenticated()">
+          <button class="profile-icon" (click)="toggleMenu()">👤</button>
+          <div class="menu-dropdown" *ngIf="menuVisible">
+            <a routerLink="/propiedades/list" class="menu-item">Mis Anuncios</a>
+            <a routerLink="/mis-favoritos" class="menu-item">Mis Favoritos</a>
+            <a routerLink="/mis-mensajes" class="menu-item">Mis Mensajes</a>
+            <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+          </div>
+        </div>
+
       </div>
     </nav>
   </header>
 
   <main class="landing-main">
     <div class="main-content">
-      <h1 class="main-title">Tu nueva vida a un clic</h1>
       <div class="search-container">
-        <div class="search-fields">
-          <input type="text" placeholder="Ciudad..." class="search-input" [(ngModel)]="ciudad">
-          <input type="text" placeholder="Provincia..." class="search-location" [(ngModel)]="provincia">
+        <div class="search-fields centered-fields">
+          <!-- Campo Ciudad -->
+          <div class="input-group">
+            <label for="ciudad">Ciudad:</label>
+            <input id="ciudad" type="text" placeholder="Ciudad..." class="search-input" [(ngModel)]="ciudad" />
+          </div>
+          <!-- Campo Provincia -->
+          <div class="input-group">
+            <label for="provincia">Provincia:</label>
+            <input id="provincia" type="text" placeholder="Provincia..." class="search-location" [(ngModel)]="provincia" />
+          </div>
+          <!-- Botón Buscar -->
           <button class="btn search-submit" (click)="buscar()">Buscar</button>
         </div>
       </div>

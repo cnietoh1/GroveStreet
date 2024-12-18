@@ -1,0 +1,106 @@
+<!-- Navbar -->
+<header class="header">
+  <a routerLink="/">
+    <img ngSrc="./assets/imagenes/grovestreet.jpg" alt="Grove Street Logo" class="logo" width="75" height="70"/>
+  </a>
+  <div class="titulo-container">
+    <h1 class="titulo">GROVE STREET</h1>
+    <p class="subtitulo">Tu piso, a un clic!</p>
+  </div>
+  <nav class="nav-bar">
+    <div class="nav-buttons">
+      <!-- Mostrar nombre de usuario -->
+      <div *ngIf="isAuthenticated()">
+        <span class="username">{{ getUsername() }}</span>
+      </div>
+      <div class="user-menu" *ngIf="isAuthenticated()">
+        <button class="profile-icon" (click)="toggleMenu()">👤</button>
+        <div class="menu-dropdown" *ngIf="menuVisible">
+          <a routerLink="/propiedades/list" class="menu-item">Mis Anuncios</a>
+          <a routerLink="/mis-favoritos" class="menu-item">Mis Favoritos</a>
+          <a routerLink="/mis-mensajes" class="menu-item">Mis Mensajes</a>
+          <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Formulario -->
+<div class="propiedad-nueva-container">
+  <form (ngSubmit)="guardarPropiedad()" #propiedadForm="ngForm" class="form-container">
+    <div class="form-content">
+      <!-- Detalles de la propiedad -->
+      <div class="form-fields">
+        <label for="imagen">Cargar Imagen</label>
+        <input type="file" id="imagen" (change)="onFileSelected($event)" accept="image/*" />
+
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" [(ngModel)]="propiedad.titulo" required />
+
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" [(ngModel)]="propiedad.descripcion" required></textarea>
+
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" [(ngModel)]="propiedad.direccion" required />
+
+        <label for="precio">Precio</label>
+        <input type="text" id="precio" name="precio" [(ngModel)]="propiedad.precio" required />
+
+        <label for="habitaciones">Habitaciones</label>
+        <input type="text" id="habitaciones" name="habitaciones" [(ngModel)]="propiedad.habitaciones" required />
+
+        <label for="banos">Baños</label>
+        <input type="text" id="banos" name="banos" [(ngModel)]="propiedad.banos" required />
+
+        <label for="metrosCuadrados">Metros Cuadrados</label>
+        <input type="text" id="metrosCuadrados" name="metrosCuadrados" [(ngModel)]="propiedad.metrosCuadrados" required />
+
+        <label for="tipoContrato">Tipo de Contrato</label>
+        <select id="tipoContrato" name="tipoContrato" [(ngModel)]="propiedad.tipoContrato" required>
+          <option value="ALQUILER">Alquiler</option>
+          <option value="VENTA">Venta</option>
+          <option value="OBRA_NUEVA">Obra Nueva</option>
+        </select>
+
+        <label for="tipoPropiedad">Tipo de Propiedad</label>
+        <select id="tipoPropiedad" name="tipoPropiedad" [(ngModel)]="propiedad.tipoPropiedad" required>
+          <option value="PISO">Piso</option>
+          <option value="CASA">Casa</option>
+          <option value="LOCAL">Chalet</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Ubicación -->
+    <fieldset>
+      <legend>Ubicación</legend>
+      <div class="ubicacion-grid">
+        <label for="ciudad">Ciudad</label>
+        <select id="ciudad" name="ciudad" [(ngModel)]="propiedad.ubicacion.ciudad" required>
+          <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+        </select>
+
+        <label for="provincia">Provincia</label>
+        <select id="provincia" name="provincia" [(ngModel)]="propiedad.ubicacion.provincia" required>
+          <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
+        </select>
+
+        <label for="pais">País</label>
+        <select id="pais" name="pais" [(ngModel)]="propiedad.ubicacion.pais" required>
+          <option *ngFor="let pais of paises" [value]="pais">{{ pais }}</option>
+        </select>
+
+        <label for="codigoPostal">Código Postal</label>
+        <select id="codigoPostal" name="codigoPostal" [(ngModel)]="propiedad.ubicacion.codigoPostal" required>
+          <option *ngFor="let cp of codigosPostales" [value]="cp.codigoPostal">
+            {{ cp.codigoPostal }} ({{ cp.ciudad }})
+          </option>
+        </select>
+      </div>
+    </fieldset>
+
+    <!-- Botón -->
+    <button type="submit">{{ esModoEdicion ? 'Actualizar' : 'Crear' }} Propiedad</button>
+  </form>
+</div>

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -27,28 +26,34 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
-    @Column(nullable = false)
-    private String username;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    @JsonIgnore
+    @Column(nullable = false, length = 50)
+    private String apellidos;
+
+    @Column(nullable = false, unique = true, length = 15)
+    private String dni;
+
+    @Column(nullable = false, length = 15)
+    private String telefono;
+
+    @Column(nullable = false, length = 100)
+    private String direccion;
+
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonIgnore
+    @Column(nullable = false, unique = true)
+    private String username;
+
     @Column(nullable = false)
     private String password;
-
-    @JsonIgnore
-    @CreatedDate
-    private LocalDateTime fechaAlta;
-
-    @JsonIgnore
-    @Column(nullable = false)
-    private String telefono;
 
     @JsonIgnore
     // Relación 1:N con propiedades (un usuario puede tener muchas propiedades)
     @OneToMany(mappedBy = "usuario")
     private List<Propiedad> propiedades;
+
+
 }

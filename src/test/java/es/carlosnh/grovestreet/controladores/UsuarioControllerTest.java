@@ -39,7 +39,7 @@ public class UsuarioControllerTest {
         nuevoUsuario.setEmail("admin@gmail.com");
         nuevoUsuario.setPassword("admin");
 
-        when(usuarioService.crear(any(Usuario.class))).thenReturn(nuevoUsuario);
+        when(usuarioService.save(any(Usuario.class))).thenReturn(nuevoUsuario);
 
         String usuarioJson = """
             {

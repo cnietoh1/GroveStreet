@@ -1,85 +1,98 @@
 <div class="contenedor">
+  <!-- Header -->
   <header class="header">
-    <img ngSrc="assets/imagenes/grovestreet.jpg" alt="Grove Street Logo" class="logo" width="75" height="75">
+    <a routerLink="/">
+      <img ngSrc="assets/imagenes/grovestreet.jpg" alt="Grove Street Logo" class="logo" width="75" height="75" />
+    </a>
     <div class="titulo-container">
       <h1 class="titulo">GROVE STREET</h1>
       <p class="subtitulo">Tu piso, a un clic!</p>
     </div>
-    <div class="acciones">
-      <button class="boton"><i class="fas fa-plus"></i> Primer anuncio</button>
-      <button class="boton"><i class="fas fa-user"></i> Iniciar sesión</button>
-      <button class="boton switch"><i class="fas fa-moon"></i> Modo oscuro</button>
-    </div>
+    <nav class="nav-bar">
+      <div class="nav-buttons">
+        <button class="boton_anuncio" (click)="crearAnuncio()">+ Crear anuncio</button>
+        <div class="user-menu" *ngIf="isAuthenticated()">
+          <button class="profile-icon" (click)="toggleMenu()">👤</button>
+          <div class="menu-dropdown" *ngIf="menuVisible">
+            <a routerLink="/propiedades/list" class="menu-item">Mis Anuncios</a>
+            <a routerLink="/mis-favoritos" class="menu-item">Mis Favoritos</a>
+            <a routerLink="/mis-mensajes" class="menu-item">Mis Mensajes</a>
+            <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
 
+  <!-- Main -->
   <main class="main">
+    <!-- Filtros -->
     <aside class="filtros">
+      <h3>Filtros</h3>
       <div class="botones-filtros">
-        <button class="filtro-boton">Compra</button>
-        <button class="filtro-boton">Alquiler</button>
-        <button class="filtro-boton">Obra nueva</button>
+        <button class="filtro-boton" (click)="setTipoContrato('VENTA')">Compra</button>
+        <button class="filtro-boton" (click)="setTipoContrato('ALQUILER')">Alquiler</button>
+        <button class="filtro-boton" (click)="setTipoContrato('OBRA_NUEVA')">Obra nueva</button>
       </div>
       <div class="filtro">
-        <label for="inmueble">Inmueble:</label>
-        <select id="inmueble">
-          <option>Seleccione opción...</option>
+        <label for="tipoPropiedad">Tipo de Inmueble:</label>
+        <select id="tipoPropiedad" [(ngModel)]="filtros.tipoPropiedad">
+          <option value="">Todos</option>
+          <option value="PISO">Piso</option>
+          <option value="CASA">Casa</option>
+          <option value="CHALET">Chalet</option>
         </select>
       </div>
       <div class="filtro">
-        <label>Tipo de inmueble:</label>
-        <label><input type="checkbox"> Piso</label>
-        <label><input type="checkbox"> Casa</label>
-        <label><input type="checkbox"> Chalet</label>
+        <label>Ubicación</label>
+        <select [(ngModel)]="filtros.ciudad">
+          <option value="">Ciudad</option>
+          <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+        </select>
+        <select [(ngModel)]="filtros.provincia">
+          <option value="">Provincia</option>
+          <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
+        </select>
+        <select [(ngModel)]="filtros.pais">
+          <option value="">País</option>
+          <option *ngFor="let pais of paises" [value]="pais">{{ pais }}</option>
+        </select>
+        <select [(ngModel)]="filtros.codigoPostal">
+          <option value="">Código Postal</option>
+          <option *ngFor="let cp of codigosPostales" [value]="cp.codigoPostal">
+            {{ cp.codigoPostal }} ({{ cp.ciudad }})
+          </option>
+        </select>
       </div>
-      <div class="filtro">
-        <label>Filtrar por precio:</label>
-        <div class="precio">
-          <input type="text" placeholder="De"> - <input type="text" placeholder="A">
-        </div>
-      </div>
-      <div class="filtro">
-        <label>Filtrar por habitaciones:</label>
-        <div class="habitaciones">
-          <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
-        </div>
-      </div>
-      <div class="filtro">
-        <label>Filtrar por metros cuadrados:</label>
-        <input type="text" placeholder="40m²...">
-      </div>
-      <button class="filtrar">FILTRAR</button>
+      <button class="filtrar" (click)="aplicarFiltros()">Aplicar Filtros</button>
     </aside>
 
+    <!-- Listado -->
     <section class="listado">
       <h2>Propiedades</h2>
-      <div class="propiedad" *ngFor="let propiedad of propiedades">
-        <div class="info-propiedad">
-          <h3>{{ propiedad.titulo }}</h3>
-          <p>{{ propiedad.descripcion }}</p>
-          <span>{{ propiedad.precio | currency: 'EUR' }}</span>
+      <div *ngIf="propiedades.length > 0; else noResultados">
+        <div class="propiedad" *ngFor="let propiedad of propiedades">
+          <div class="tarjeta-propiedad">
+            <h3>{{ propiedad.titulo }}</h3>
+            <p><strong>Dirección:</strong> {{ propiedad.direccion }}</p>
+            <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>
+            <p><strong>Metros cuadrados:</strong> {{ propiedad.metrosCuadrados }} m²</p>
+            <p><strong>Tipo de contrato:</strong> {{ propiedad.tipoContrato }}</p>
+            <p><strong>Tipo de propiedad:</strong> {{ propiedad.tipoPropiedad }}</p>
+            <p><strong>Ubicación:</strong> {{ propiedad.ubicacion?.ciudad }}, {{ propiedad.ubicacion?.provincia }}, {{ propiedad.ubicacion?.pais }}</p>
+            <p><strong>Código Postal:</strong> {{ propiedad.ubicacion?.codigoPostal }}</p>
+            <div class="precio">{{ propiedad.precio | currency: 'EUR' }}</div>
+          </div>
         </div>
       </div>
+      <ng-template #noResultados>
+        <p class="no-resultados">Ninguna propiedad cumple los requisitos de búsqueda.</p>
+      </ng-template>
     </section>
-
-    <aside class="mapa">
-      <button class="guardar-busqueda"><i class="fas fa-heart"></i> Guardar búsqueda</button>
-      <div class="mapa-placeholder">Aquí irá un mapa interactivo</div>
-    </aside>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div class="enlaces">
-      <a href="#">Ayuda</a>
-      <a href="#">Contacto</a>
-      <a href="#">Sobre nosotros</a>
-    </div>
-    <div class="idioma">
-      <i class="fas fa-globe"></i>
-      <select>
-        <option>Español</option>
-        <option>Inglés</option>
-      </select>
-    </div>
     <p>&copy; 2024 Grove Street. Todos los derechos reservados.</p>
   </footer>
 </div>

@@ -31,6 +31,9 @@ public class Propiedad {
     private String descripcion;
 
     @Column(nullable = false)
+    private String direccion;
+
+    @Column(nullable = false)
     private Double precio;
 
     @Column(nullable = false)
@@ -39,11 +42,16 @@ public class Propiedad {
     @Column(nullable = false)
     private Integer banos;
 
-    @Column(nullable = false)
+    @Column(name= "metros_cuadrados", nullable = false)
     private Double metrosCuadrados;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_propiedad", nullable = false)
     private TipoPropiedad tipoPropiedad;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_contrato", nullable = false)
+    private TipoContrato tipoContrato;
 
     // Relación con Usuario (muchas propiedades pertenecen a un usuario)
     @ManyToOne
@@ -55,11 +63,7 @@ public class Propiedad {
     @JoinColumn(name = "id_ubicacion", referencedColumnName = "id")
     private Ubicacion ubicacion;
 
-    @Column(nullable = false)
-    private TipoContrato tipoContrato;
+    @Column(name = "imagen_url", nullable = true)
+    private String imagenUrl;
 
-    // Relación 1:N con Imagenes
-    @OneToMany(mappedBy = "propiedad", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<ImagenPropiedad> imagenes;
 }

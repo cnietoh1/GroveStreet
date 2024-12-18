@@ -28,7 +28,7 @@ public class InitData {
 
         /*Usuario usuario1 = Usuario.builder()
                 .username("admin")
-                .email("user@gmail.com")
+                .email("admin@email.com")g ser
                 .password("admin")
                 .build();
 

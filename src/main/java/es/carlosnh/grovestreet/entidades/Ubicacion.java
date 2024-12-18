@@ -21,23 +21,27 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String direccion;
-
-    @Column(nullable = false)
+    @Column(name = "ciudad", nullable = false)
     private String ciudad;
 
-    @Column(nullable = false)
+    @Column(name = "provincia", nullable = false)
     private String provincia;
 
-    @Column(nullable = false)
+    @Column(name = "pais", nullable = false)
     private String pais;
 
-    @Column(nullable = false)
+    @Column(name = "codigo_postal", nullable = false)
     private String codigoPostal;
 
-    // Relación 1:1 con Propiedad
     @OneToOne(mappedBy = "ubicacion")
     @JsonIgnore
     private Propiedad propiedad;
+
+    // Constructor personalizado
+    public Ubicacion(String ciudad, String provincia, String pais, String codigoPostal) {
+        this.ciudad = ciudad;
+        this.provincia = provincia;
+        this.pais = pais;
+        this.codigoPostal = codigoPostal;
+    }
 }

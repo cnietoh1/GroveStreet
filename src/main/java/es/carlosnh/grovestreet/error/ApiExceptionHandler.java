@@ -3,8 +3,6 @@ package es.carlosnh.grovestreet.error;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,32 +46,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMostSpecificCause().getMessage());
   }
 
-  @ExceptionHandler( AuthenticationException.class )
-  public ProblemDetail handleAuthenticationException(Exception ex) {
-    return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
-  }
-
-  @ExceptionHandler( AccessDeniedException.class )
-  public ProblemDetail handleAccessDeniedException(Exception ex, WebRequest request) {
-    String desc = request.getDescription(true); // URI, etc.
-    String mensaje = String.format("No tiene permisos para ejecutar esta operación. Información de la petición:%n%s",
-        desc );
-    return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, mensaje);
-  }
-
   @ExceptionHandler( Exception.class )
   @ResponseStatus( HttpStatus.INTERNAL_SERVER_ERROR )
   public ProblemDetail handleDefaultException(Exception ex) {
     log.warn("~~~~~~~~~~~~~~~~~~~~~~ APP HANDLING EXCEPTION ~~~~~~~~~~~~~~~~~~~~~~\n", ex);
     return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage());
   }
-
-  //  @ExceptionHandler( RuntimeException.class )
-//  @ResponseStatus( HttpStatus.INTERNAL_SERVER_ERROR )
-//  public ProblemDetail handleRuntimeException(RuntimeException ex) {
-//    log.warn("~~~~~~~~~~~~~~~~~~~~~~ APP HANDLING RUNTIME EXCEPTION ~~~~~~~~~~~~~~~~~~~~~~\n", ex);
-//    log.error(ex.getMessage(), ex);
-//    return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage());
-//  }
 
 }

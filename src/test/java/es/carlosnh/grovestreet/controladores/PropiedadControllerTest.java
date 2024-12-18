@@ -61,7 +61,7 @@ public class PropiedadControllerTest {
                 .build();
 
         when(propiedadMapper.toEntity(any(PropiedadDto.class))).thenReturn(propiedad);
-        when(propiedadService.crear(any(Propiedad.class))).thenReturn(propiedad);
+        when(propiedadService.guardarPropiedad(any(Propiedad.class))).thenReturn(propiedad);
         when(propiedadMapper.toDto(any(Propiedad.class))).thenReturn(propiedadDto);
 
         mockMvc.perform(post("/api/propiedades")

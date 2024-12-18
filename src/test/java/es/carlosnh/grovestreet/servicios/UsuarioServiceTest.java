@@ -39,7 +39,7 @@ public class UsuarioServiceTest {
     @DataSet("datasets/usuarios.yml")
     void testCrearUsuario() {
         when(usuarioRepository.save(usuario)).thenReturn(usuario);
-        Usuario resultado = usuarioService.crear(usuario);
+        Usuario resultado = usuarioService.save(usuario);
         assertNotNull(resultado);
         assertEquals("admin", resultado.getUsername());
         verify(usuarioRepository, times(1)).save(usuario);

@@ -1,1 +1,75 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primario: #6200ea;
+  --color-fondo-claro: #f9f9f9;
+  --color-fondo-oscuro: #222;
+  --color-texto-claro: #333;
+  --color-texto-oscuro: #f9f9f9;
+  --color-gris: #888;
+  --color-borde: #ddd;
+}
+
+body[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+body[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  transition: background 0.3s, color 0.3s;
+  background: var(--color-fondo-claro);
+  color: var(--color-texto-claro);
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primario);
+}
+
+button {
+  background-color: var(--color-primario);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: (var(--color-primario), 10%);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--color-primario);
+  color: #fff;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .theme-switch {
+    background: transparent;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

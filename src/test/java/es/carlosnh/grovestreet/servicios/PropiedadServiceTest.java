@@ -39,7 +39,7 @@ public class PropiedadServiceTest {
     @DataSet("datasets/propiedades.yml")
     void testCrearPropiedad() {
         when(propiedadRepository.save(propiedad)).thenReturn(propiedad);
-        Propiedad resultado = propiedadService.crear(propiedad);
+        Propiedad resultado = propiedadService.guardarPropiedad(propiedad);
         assertNotNull(resultado);
         assertEquals("Piso en el centro", resultado.getTitulo());
         verify(propiedadRepository, times(1)).save(propiedad);
